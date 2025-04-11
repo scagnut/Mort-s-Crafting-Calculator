@@ -1,4 +1,4 @@
-// Optimized Crafting System with Debugging Fixes
+// Optimized Crafting System - Fully Fixed
 class CraftingSystem {
     constructor(inventory) {
         this.inventory = this.parseInventory(inventory);
@@ -15,13 +15,13 @@ class CraftingSystem {
                 let quantity = parseInt(match[2]);
 
                 // Exclude unwanted items and headers
-                if (item !== "Items in Craft Vault" && item !== "Violent Essence" && item !== "Vigor Essence") {
+                if (!["Items in Craft Vault", "Violent Essence", "Vigor Essence"].includes(item)) {
                     inventory[item] = quantity;
                 }
             }
         }
 
-        console.log("Parsed Inventory:", inventory); // Debugging check
+        console.log("✅ Parsed Inventory:", inventory); // Debugging check
         return inventory;
     }
 
@@ -30,6 +30,7 @@ class CraftingSystem {
         for (let file of selectedFiles) {
             try {
                 const response = await fetch(file);
+                if (!response.ok) throw new Error(`Failed to load ${file}`);
                 const text = await response.text();
                 const lines = text.split("\n");
 
@@ -45,7 +46,7 @@ class CraftingSystem {
                                 let itemName = materialMatch[1].trim();
                                 let quantity = parseInt(materialMatch[2]);
 
-                                if (itemName !== "Violent Essence" && itemName !== "Vigor Essence") {
+                                if (!["Violent Essence", "Vigor Essence"].includes(itemName)) {
                                     materials[itemName] = quantity;
                                 }
                             }
@@ -57,11 +58,11 @@ class CraftingSystem {
                     }
                 }
             } catch (error) {
-                console.error(`Error loading recipe file: ${file}`, error);
+                console.error(`❌ Error loading recipe file: ${file}`, error);
             }
         }
 
-        console.log("Parsed Recipes:", allRecipes); // Debugging check
+        console.log("✅ Parsed Recipes:", allRecipes); // Debugging check
         return allRecipes;
     }
 
@@ -75,7 +76,7 @@ class CraftingSystem {
                 }
             }
         }
-        console.log("Filtered Recipes:", filteredRecipes); // Debugging check
+        console.log("✅ Filtered Recipes:", filteredRecipes); // Debugging check
         return filteredRecipes;
     }
 
@@ -97,14 +98,14 @@ class CraftingSystem {
             }
         }
 
-        console.log("Crafting Report:", craftableItems); // Debugging check
+        console.log("✅ Crafting Report:", craftableItems); // Debugging check
         return craftableItems;
     }
 }
 
 // Function to run crafting calculation
 async function runCraftingCalculation() {
-    console.log("Running crafting calculation..."); // Debugging check
+    console.log("🚀 Running crafting calculation..."); // Debugging check
 
     let rawInventory = document.getElementById("inventory").value;
     let selectedFiles = Array.from(document.querySelectorAll(".file-checkbox:checked")).map(el => el.value);
@@ -115,7 +116,7 @@ async function runCraftingCalculation() {
     let filteredRecipes = craftingSystem.filterRecipesByTier(recipes, selectedTiers);
     let craftingResults = craftingSystem.generateCraftingReport(filteredRecipes);
 
-    console.log("Final crafting results:", craftingResults); // Debugging check
+    console.log("✅ Final Crafting Results:", craftingResults); // Debugging check
 
     document.getElementById("output").textContent = craftingResults && Object.keys(craftingResults).length
         ? JSON.stringify(craftingResults, null, 2)
