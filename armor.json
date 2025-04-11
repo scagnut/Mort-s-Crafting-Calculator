@@ -1,0 +1,68 @@
+{
+    "ArmorCrafting": {
+        "Tiers": {
+            "Tier 1": {"Level": 1, "Color": "Green", "CraftingLevel": 20},
+            "Tier 2": {"Level": 30, "Color": "Blue", "CraftingLevel": 20},
+            "Tier 3": {"Level": 50, "Color": "Green", "CraftingLevel": 25},
+            "Tier 4": {"Level": 70, "Color": "Purple", "CraftingLevel": 20},
+            "Tier 5": {"Level": 80, "Color": "Blue", "CraftingLevel": 25},
+            "Tier 6": {"Level": 95, "Color": "Purple", "CraftingLevel": 25}
+        },
+        "Recipes": {
+            "Tier 1": {
+                "Linen Hood": ["Linen(15)", "Bolt of Linen(1)", "Coarse Thread(2)", "Feather(1)"],
+                "Iron Helmet": ["Iron Ore(15)", "Silver Ore(1)", "Ruby(3)"],
+                "Leather Chainmail": ["Light Leather(15)", "Light Hide(3)", "Sinew(1)"],
+                "Iron Aegis": ["Iron Ore(15)", "Silver Ore(1)", "Jade(4)"],
+                "Iron Breastplate": ["Iron Ore(15)", "Silver Ore(4)", "Amethyst(1)"],
+                "Linen Cloak": ["Linen(15)", "Bolt of Linen(2)", "Coarse Thread(1)", "Feather(2)"],
+                "Leather Greatcoat": ["Light Leather(15)", "Light Hide(1)", "Sinew(2)", "Teeth(2)"]
+            },
+            "Tier 2": {
+                "Silver Cloak": ["Linen(10)", "Bolt of Linen(2)", "Coarse Thread(3)", "Feather(5)", "Enchanted Thread(2)"],
+                "Silver Hood": ["Linen(10)", "Bolt of Linen(5)", "Coarse Thread(2)", "Feather(3)", "Enchanted Thread(2)"],
+                "Silver Guard": ["Iron Ore(10)", "Ruby(7)", "Amethyst(3)", "Coral(2)"],
+                "Silver Platemail": ["Iron Ore(10)", "Silver Ore(3)", "Jade(7)", "Sapphire(2)"],
+                "Silver Helm": ["Iron Ore(10)", "Silver Ore(5)", "Amethyst(4)", "Coral(2)"],
+                "Silver Chainmail": ["Light Leather(10)", "Light Hide(8)", "Teeth(2)", "Jaw Bone(2)"],
+                "Silver Studded Jacket": ["Light Leather(10)", "Light Hide(4)", "Sinew(6)", "Jaw Bone(2)"]
+            },
+            "Tier 3": {
+                "Golden Helm": ["Iron Ore(35)", "Coral(10)", "Gold Ore(2)", "Sapphire(5)", "Peridot(3)", "Vigor Essence(3)"],
+                "Golden Bulwark": ["Iron Ore(35)", "Sapphire(10)", "Gold Ore(5)", "Coral(2)", "Emerald(3)", "Vigor Essence(3)"],
+                "Goldweave Tunic": ["Medium Leather(35)", "Fur Pelt(15)", "Medium Hide(2)", "Jaw Bone(3)", "Vigor Essence(3)"],
+                "Goldweave Hood": ["Cotton(35)", "Bolt of Cotton(15)", "Large Feather(2)", "Enchanted Thread(3)", "Vigor Essence(3)"],
+                "Golden Mail": ["Medium Leather(35)", "Medium Hide(15)", "Fur Pelt(2)", "Jaw Bone(3)", "Vigor Essence(3)"],
+                "Goldweave Cloak": ["Cotton(35)", "Bolt of Cotton(2)", "Large Feather(15)", "Enchanted Thread(3)", "Vigor Essence(3)"],
+                "Goldweave Breastplate": ["Iron Ore(35)", "Gold Ore(10)", "Coral(5)", "Sapphire(2)", "Diamond(3)", "Vigor Essence(3)"]
+            },
+            "Tier 4": {
+                "Chromium Cloak": ["Cotton(40)", "Bolt of Cotton(15)", "Large Feather(5)", "Enchanted Thread(7)"],
+                "Chromium Hat": ["Cotton(40)", "Bolt of Cotton(5)", "Large Feather(15)", "Enchanted Thread(7)"],
+                "Chromium Heater": ["Iron Ore(40)", "Sapphire(15)", "Coral(5)", "Diamond(7)"],
+                "Chromium Barbut": ["Iron Ore(40)", "Gold Ore(15)", "Sapphire(5)", "Emerald(7)"],
+                "Chromium Breastplate": ["Iron Ore(40)", "Coral(15)", "Gold Ore(5)", "Peridot(7)"],
+                "Chromium Chainmail": ["Medium Leather(40)", "Medium Hide(15)", "Fur Pelt(5)", "Jaw Bone(7)"],
+                "Chromium Studded Vest": ["Medium Leather(40)", "Fur Pelt(15)", "Medium Hide(5)", "Jaw Bone(7)"]
+            },
+            "Tier 5": {
+                "Orichalcum Helmet": ["Orichalcum Ore(80)", "Lapis(35)", "Malachite(5)", "Beryl(12)", "Vigor Essence(6)"],
+                "Orichalcum Buckler": ["Orichalcum Ore(80)", "Malachite(35)", "Amber(5)", "Garnet(12)", "Vigor Essence(6)"],
+                "Orichalcum Ringmail": ["Heavy Leather(80)", "Heavy Hide(35)", "Bloody Carcass(5)", "Animal Skull(6)", "Vigor Essence(6)"],
+                "Orichalcum Platemail": ["Orichalcum Ore(80)", "Amber(35)", "Lapis(5)", "Zircon(12)", "Vigor Essence(6)"],
+                "Orichalcum Vestments": ["Heavy Leather(80)", "Bloody Carcass(35)", "Heavy Hide(5)", "Rugged Leather(12)", "Vigor Essence(6)"],
+                "Orichalcum Hood": ["Wool(80)", "Pristine Feather(30)", "Bolt of Wool(10)", "Alderran Silk(12)", "Vigor Essence(6)"],
+                "Orichalcum Cloak": ["Wool(80)", "Bolt of Wool(30)", "Pristine Feather(10)", "Blackspawn Silk(12)", "Vigor Essence(6)"]
+            },
+            "Tier 6": {
+                "Unyielding Resolve": ["Orichalcum Ore(600)", "Amber(200)", "Lapis(100)", "Garnet(100)", "Vigor Essence(10)"],
+                "Wall of Alderra": ["Orichalcum Ore(600)", "Lapis(200)", "Malachite(100)", "Zircon(100)", "Vigor Essence(10)"],
+                "Adyrinth's Diadem": ["Wool(600)", "Pristine Feather(200)", "Bolt of Wool(100)", "Alderran Silk(75)", "Blackspawn Silk(25)", "Vigor Essence(10)"],
+                "Ebonhelm": ["Orichalcum Ore(600)", "Malachite(200)", "Amber(100)", "Beryl(100)", "Vigor Essence(10)"],
+                "Enveloping Cloud": ["Wool(600)", "Bolt of Wool(250)", "Pristine Feather(50)", "Alderran Silk(25)", "Blackspawn Silk(75)", "Vigor Essence(10)"],
+                "Solemn Cuirass": ["Heavy Leather(600)", "Bloody Carcass(250)", "Heavy Hide(50)", "Animal Skull(75)", "Rugged Leather(25)", "Vigor Essence(10)"],
+                "Wanderer's Mail": ["Heavy Leather(600)", "Heavy Leather(250)", "Bloody Carcass(50)", "Rugged Leather(75)", "Animal Skull(25)", "Vigor Essence(10)"]
+            }
+        }
+    }
+}
