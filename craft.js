@@ -1,97 +1,92 @@
-// Function to parse the inventory input
-function parseInventory(rawInventory) {
-    const inventory = {};
-    const lines = rawInventory.trim().split('\n');
-    for (let line of lines) {
-        const parts = line.split(']');
-        let itemData = parts.length > 1 ? parts[1].trim() : line.trim();
-        const match = itemData.match(/(.+?)\((\d+)\)/);
-        if (match) {
-            const itemName = match[1].trim();
-            const quantity = parseInt(match[2]);
-            inventory[itemName] = quantity;
-        }
+// Crafting System Class (includes inventory parsing and recipe matching)
+class CraftingSystem {
+    constructor(inventory) {
+        this.inventory = this.parseInventory(inventory);
+        this.recipes = this.getRecipes();  // Placeholder for recipes
     }
-    return inventory;
-}
 
-// Function to parse a recipe file
-async function parseRecipeFile(filePath) {
-    const response = await fetch(filePath);
-    const text = await response.text();
-    const lines = text.split('\n');
-    const tiers = {};
-    const recipes = {};
-
-    for (let line of lines) {
-        line = line.trim();
-        if (!line || line.startsWith("#")) continue;
-
-        if (line.includes("Tier") && line.includes("Level") && line.includes(",")) {
-            const parts = line.split(',');
-            if (parts.length === 4) {
-                const tierName = parts[0].trim();
-                const level = parseInt(parts[1].trim().replace("Level ", ""));
-                const color = parts[2].trim();
-                const craftingLevel = parseInt(parts[3].trim().replace("Level ", ""));
-                tiers[tierName] = { level, color, craftingLevel };
-            }
-        } else if (line.includes(",")) {
-            const parts = line.split(',');
-            const recipeName = parts[0].trim();
-            const materials = {};
-            for (let i = 1; i < parts.length; i++) {
-                const material = parts[i].trim();
-                const match = material.match(/(.+?)\((\d+)\)/);
-                if (match) {
-                    const itemName = match[1].trim();
-                    if (itemName === "Violent Essence" || itemName === "Vigor Essence") continue;
-                    const quantity = parseInt(match[2]);
-                    materials[itemName] = quantity;
+    parseInventory(rawData) {
+        let inventory = {};
+        rawData.split("\n").forEach(line => {
+            let match = line.match(/\[.*?\] (.+?)\((\d+)\)/);
+            if (match) {
+                let item = match[1].trim();
+                let quantity = parseInt(match[2]);
+                
+                // Exclude unwanted items
+                if (item !== "Violent Essence" && item !== "Vigor Essence") {
+                    inventory[item] = quantity;
                 }
             }
-            if (Object.keys(materials).length > 0) {
-                recipes[recipeName] = materials;
+        });
+        return inventory;
+    }
+
+    // Placeholder for getting recipes, could be replaced with JSON or file-based system
+    getRecipes() {
+        return {
+            "Potion of Strength": {
+                "Herb": 2,
+                "Water": 1
+            },
+            "Healing Potion": {
+                "Herb": 1,
+                "Water": 2
+            }
+        };
+    }
+
+    getCraftableItems() {
+        let craftableItems = {};
+        for (let recipeName in this.recipes) {
+            let recipe = this.recipes[recipeName];
+            let maxCount = Infinity;
+
+            // Check how many times each recipe can be crafted
+            for (let item in recipe) {
+                let requiredAmount = recipe[item];
+                let availableAmount = this.inventory[item] || 0;
+                maxCount = Math.min(maxCount, Math.floor(availableAmount / requiredAmount));
+            }
+
+            if (maxCount > 0) {
+                craftableItems[recipeName] = maxCount;
             }
         }
+        return craftableItems;
     }
 
-    return { tiers, recipes };
-}
-
-// Function to parse selected files
-async function parseFiles(selectedFiles) {
-    const allTiers = {};
-    const allRecipes = {};
-    for (let file of selectedFiles) {
-        const { tiers, recipes } = await parseRecipeFile(file);
-        Object.assign(allTiers, tiers);
-        Object.assign(allRecipes, recipes);
-    }
-    return { allTiers, allRecipes };
-}
-
-// Function to filter recipes based on selected tiers
-function filterByTiers(recipes, selectedTiers) {
-    const filteredRecipes = {};
-    for (let recipeName in recipes) {
-        for (let tier of selectedTiers) {
-            if (recipeName.includes(tier)) {
-                filteredRecipes[recipeName] = recipes[recipeName];
-                break;
-            }
+    getInventoryReport() {
+        let report = [];
+        for (let item in this.inventory) {
+            report.push(`✅ ${item} (Available: ${this.inventory[item]})`);
         }
+        return `📜 **Inventory Report**\n${report.join("\n")}`;
     }
-    return filteredRecipes;
+
+    getCraftingReport() {
+        let craftableItems = this.getCraftableItems();
+        if (Object.keys(craftableItems).length === 0) {
+            return "No craftable items found.";
+        }
+
+        let report = [];
+        for (let item in craftableItems) {
+            report.push(`${item}: Can craft ${craftableItems[item]} times`);
+        }
+        return `📜 **Crafting Report**\n${report.join("\n")}`;
+    }
 }
 
-// Function to generate crafting report
-function craftingReport(recipes, inventory) {
-    const craftableItems = {};
-    for (let recipeName in recipes) {
-        const materials = recipes[recipeName];
-        let maxCount = Infinity;
-        for (let item in materials) {
+// Function to trigger crafting
+function checkCrafting() {
+    let rawInventory = document.getElementById("inventory").value;
+    let craftingSystem = new CraftingSystem(rawInventory);
 
-::contentReference[oaicite:18]{index=18}
- 
+    // Display results: Inventory Report + Crafting Report
+    document.getElementById("result").textContent = `
+        ${craftingSystem.getInventoryReport()}
+        \n\n
+        ${craftingSystem.getCraftingReport()}
+    `;
+}
