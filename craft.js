@@ -33,10 +33,28 @@ class CraftingSystem {
                 if (!response.ok) throw new Error(`Failed to load ${file}`);
                 const jsonData = await response.json(); // Parse JSON instead of text
 
-                for (let recipeName in jsonData) {
-                    let materials = jsonData[recipeName];
-                    if (Object.keys(materials).length > 0) {
-                        allRecipes[recipeName] = materials;
+                for (let category in jsonData) {
+                    let tierData = jsonData[category].Recipes;
+
+                    for (let tier in tierData) {
+                        let recipes = tierData[tier];
+
+                        for (let recipeName in recipes) {
+                            let rawMaterials = recipes[recipeName];
+                            if (rawMaterials.length > 0) {
+                                let materials = {};
+
+                                // Convert ["Item(2)", "Item(1)"] into { "Item": 2, "Item2": 1 }
+                                for (let entry of rawMaterials) {
+                                    let match = entry.match(/(.+?)\((\d+)\)/);
+                                    if (match) {
+                                        materials[match[1].trim()] = parseInt(match[2]);
+                                    }
+                                }
+
+                                allRecipes[recipeName] = materials;
+                            }
+                        }
                     }
                 }
             } catch (error) {
@@ -44,12 +62,13 @@ class CraftingSystem {
             }
         }
 
-        console.log("✅ Parsed Recipes:", allRecipes); // Debugging check
+        console.log("✅ Fixed Parsed Recipes:", allRecipes); // Debugging check
         return allRecipes;
     }
 
     filterRecipesByTier(recipes, selectedTiers) {
         let filteredRecipes = {};
+        
         for (let recipeName in recipes) {
             for (let tier of selectedTiers) {
                 if (recipeName.includes(tier)) {
@@ -58,7 +77,8 @@ class CraftingSystem {
                 }
             }
         }
-        console.log("✅ Filtered Recipes:", filteredRecipes); // Debugging check
+        
+        console.log("✅ Fixed Filtered Recipes:", filteredRecipes); // Debugging check
         return filteredRecipes;
     }
 
