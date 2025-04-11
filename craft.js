@@ -1,4 +1,4 @@
-// Optimized Crafting System with JSON Recipe File Handling
+// Optimized Crafting System with JSON Recipe File Handling & Debugging
 class CraftingSystem {
     constructor(inventory) {
         this.inventory = this.parseInventory(inventory);
@@ -21,7 +21,7 @@ class CraftingSystem {
             }
         }
 
-        console.log("✅ Parsed Inventory:", inventory); // Debugging check
+        console.log("✅ Parsed Inventory:", JSON.stringify(inventory, null, 2)); // Debugging check
         return inventory;
     }
 
@@ -31,7 +31,7 @@ class CraftingSystem {
             try {
                 const response = await fetch(`https://scagnut.github.io/Mort-s-Crafting-Calculator/${file}`);
                 if (!response.ok) throw new Error(`Failed to load ${file}`);
-                const jsonData = await response.json(); // Parse JSON instead of text
+                const jsonData = await response.json(); // Parse JSON
 
                 for (let category in jsonData) {
                     let tierData = jsonData[category].Recipes;
@@ -62,13 +62,14 @@ class CraftingSystem {
             }
         }
 
-        console.log("✅ Fixed Parsed Recipes:", allRecipes); // Debugging check
+        console.log("✅ Fixed Parsed Recipes Structure:", JSON.stringify(allRecipes, null, 2)); // Debugging check
+        window.debugRecipes = allRecipes; // Store globally for manual debugging
         return allRecipes;
     }
 
     filterRecipesByTier(recipes, selectedTiers) {
         let filteredRecipes = {};
-        
+
         for (let recipeName in recipes) {
             for (let tier of selectedTiers) {
                 if (recipeName.includes(tier)) {
@@ -77,19 +78,26 @@ class CraftingSystem {
                 }
             }
         }
-        
-        console.log("✅ Fixed Filtered Recipes:", filteredRecipes); // Debugging check
+
+        console.log("✅ Fixed Filtered Recipes:", JSON.stringify(filteredRecipes, null, 2)); // Debugging check
         return filteredRecipes;
     }
 
     generateCraftingReport(recipes) {
         let craftableItems = {};
+        let standardizedInventory = {};
+
+        // Standardize inventory item names to lowercase
+        for (let item in this.inventory) {
+            standardizedInventory[item.toLowerCase()] = this.inventory[item];
+        }
+
         for (let recipeName in recipes) {
             const materials = recipes[recipeName];
             let maxCraftCount = Infinity;
 
             for (let item in materials) {
-                let available = this.inventory[item] || 0;
+                let available = standardizedInventory[item.toLowerCase()] || 0;
                 let required = materials[item];
 
                 maxCraftCount = Math.min(maxCraftCount, Math.floor(available / required));
@@ -100,7 +108,7 @@ class CraftingSystem {
             }
         }
 
-        console.log("✅ Crafting Report:", craftableItems); // Debugging check
+        console.log("✅ Crafting Report:", JSON.stringify(craftableItems, null, 2)); // Debugging check
         return craftableItems;
     }
 }
@@ -116,14 +124,14 @@ async function runCraftingCalculation() {
     // Ensure file names reference JSON instead of TXT
     selectedFiles = selectedFiles.map(file => file.replace(".txt", ".json"));
 
-    console.log("✅ Checking Recipe Files:", selectedFiles); // Debugging check
+    console.log("✅ Recipe Files Selected:", selectedFiles); // Debugging check
 
     let craftingSystem = new CraftingSystem(rawInventory);
     let recipes = await craftingSystem.parseRecipeFiles(selectedFiles);
     let filteredRecipes = craftingSystem.filterRecipesByTier(recipes, selectedTiers);
     let craftingResults = craftingSystem.generateCraftingReport(filteredRecipes);
 
-    console.log("✅ Final Crafting Results:", craftingResults); // Debugging check
+    console.log("✅ Final Crafting Results:", JSON.stringify(craftingResults, null, 2)); // Debugging check
 
     document.getElementById("output").textContent = craftingResults && Object.keys(craftingResults).length
         ? JSON.stringify(craftingResults, null, 2)
