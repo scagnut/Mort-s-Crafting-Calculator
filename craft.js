@@ -16,12 +16,13 @@ class CraftingSystem {
 
                 // Exclude unwanted items and headers
                 if (!["Items in Craft Vault", "Violent Essence", "Vigor Essence"].includes(item)) {
-                    inventory[item] = quantity;
+                    inventory[item.toLowerCase()] = quantity;
                 }
             }
         }
 
         console.log("✅ Parsed Inventory:", JSON.stringify(inventory, null, 2)); // Debugging check
+        window.debugInventory = inventory; // Store globally for manual debugging
         return inventory;
     }
 
@@ -48,7 +49,7 @@ class CraftingSystem {
                                 for (let entry of rawMaterials) {
                                     let match = entry.match(/(.+?)\((\d+)\)/);
                                     if (match) {
-                                        materials[match[1].trim()] = parseInt(match[2]);
+                                        materials[match[1].trim().toLowerCase()] = parseInt(match[2]);
                                     }
                                 }
 
@@ -80,6 +81,7 @@ class CraftingSystem {
         }
 
         console.log("✅ Fixed Filtered Recipes:", JSON.stringify(filteredRecipes, null, 2)); // Debugging check
+        window.debugFilteredRecipes = filteredRecipes; // Store globally for debugging
         return filteredRecipes;
     }
 
@@ -89,7 +91,7 @@ class CraftingSystem {
 
         // Standardize inventory item names to lowercase
         for (let item in this.inventory) {
-            standardizedInventory[item.toLowerCase()] = this.inventory[item];
+            standardizedInventory[item.toLowerCase().trim()] = this.inventory[item];
         }
 
         for (let recipeName in recipes) {
@@ -97,7 +99,7 @@ class CraftingSystem {
             let maxCraftCount = Infinity;
 
             for (let item in materials) {
-                let available = standardizedInventory[item.toLowerCase()] || 0;
+                let available = standardizedInventory[item.toLowerCase().trim()] || 0;
                 let required = materials[item];
 
                 maxCraftCount = Math.min(maxCraftCount, Math.floor(available / required));
@@ -109,6 +111,7 @@ class CraftingSystem {
         }
 
         console.log("✅ Crafting Report:", JSON.stringify(craftableItems, null, 2)); // Debugging check
+        window.debugCraftingReport = craftableItems; // Store globally for debugging
         return craftableItems;
     }
 }
