@@ -9,20 +9,20 @@ class CraftingSystem {
         let lines = rawData.split("\n");
 
         for (let line of lines) {
-            let match = line.match(/\[.*?\] (.+?)\((\d+)\)/);
-            if (match) {
-                let item = match[1].trim();
-                let quantity = parseInt(match[2]);
+            // Remove timestamps automatically using regex (e.g., "[05:51]")
+            line = line.replace(/\[\d{2}:\d{2}\] /, "").trim();
 
-                // Exclude unwanted items and headers
-                if (!["Items in Craft Vault", "Violent Essence", "Vigor Essence"].includes(item)) {
-                    inventory[item.toLowerCase()] = quantity;
-                }
+            let match = line.match(/(.+?)\(?(\d+)?\)?$/); // Extract item name + quantity
+            if (match) {
+                let item = match[1].trim().toLowerCase(); // Standardize name
+                let quantity = parseInt(match[2]) || 1; // Default to 1 if missing
+                
+                inventory[item] = (inventory[item] || 0) + quantity; // Aggregate items
             }
         }
 
-        console.log("✅ Parsed Inventory:", JSON.stringify(inventory, null, 2)); // Debugging check
-        window.debugInventory = inventory; // Store globally for manual debugging
+        console.log("✅ Standardized Inventory:", JSON.stringify(inventory, null, 2)); // Debugging check
+        window.debugInventory = inventory; // Store globally for debugging
         return inventory;
     }
 
@@ -89,7 +89,7 @@ class CraftingSystem {
         let craftableItems = {};
         let standardizedInventory = {};
 
-        // Standardize inventory item names to lowercase
+        // Standardize inventory item names to match Python's approach
         for (let item in this.inventory) {
             standardizedInventory[item.toLowerCase().trim()] = this.inventory[item];
         }
@@ -99,8 +99,9 @@ class CraftingSystem {
             let maxCraftCount = Infinity;
 
             for (let item in materials) {
-                let available = standardizedInventory[item.toLowerCase().trim()] || 0;
-                let required = materials[item];
+                let normalizedItem = item.toLowerCase().trim();
+                let available = standardizedInventory[normalizedItem] || 0;
+                let required = materials[normalizedItem] || 0;
 
                 maxCraftCount = Math.min(maxCraftCount, Math.floor(available / required));
             }
@@ -110,7 +111,7 @@ class CraftingSystem {
             }
         }
 
-        console.log("✅ Crafting Report:", JSON.stringify(craftableItems, null, 2)); // Debugging check
+        console.log("✅ Fixed Crafting Report:", JSON.stringify(craftableItems, null, 2)); // Debugging check
         window.debugCraftingReport = craftableItems; // Store globally for debugging
         return craftableItems;
     }
