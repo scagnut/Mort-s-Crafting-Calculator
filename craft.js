@@ -9,7 +9,7 @@ class CraftingSystem {
         let lines = rawData.split("\n");
 
         for (let line of lines) {
-            // Remove timestamps automatically using regex (e.g., "[05:51]")
+            // Remove timestamps like "[05:51]" automatically
             line = line.replace(/\[\d{2}:\d{2}\] /, "").trim();
 
             let match = line.match(/(.+?)\(?(\d+)?\)?$/); // Extract item name + quantity
@@ -89,7 +89,7 @@ class CraftingSystem {
         let craftableItems = {};
         let standardizedInventory = {};
 
-        // Standardize inventory item names to match Python's approach
+        // Standardize inventory item names
         for (let item in this.inventory) {
             standardizedInventory[item.toLowerCase().trim()] = this.inventory[item];
         }
@@ -100,7 +100,11 @@ class CraftingSystem {
 
             for (let item in materials) {
                 let normalizedItem = item.toLowerCase().trim();
-                let available = standardizedInventory[normalizedItem] || 0;
+                let closestMatch = Object.keys(standardizedInventory).find(invItem =>
+                    invItem.includes(normalizedItem) || normalizedItem.includes(invItem)
+                );
+
+                let available = closestMatch ? standardizedInventory[closestMatch] : 0;
                 let required = materials[normalizedItem] || 0;
 
                 maxCraftCount = Math.min(maxCraftCount, Math.floor(available / required));
