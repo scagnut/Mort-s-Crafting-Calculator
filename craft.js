@@ -134,7 +134,12 @@ async function runCraftingCalculation() {
     let filteredRecipes = craftingSystem.filterRecipesByTier(recipes, selectedTiers);
     let craftingResults = craftingSystem.generateCraftingReport(filteredRecipes);
 
-    console.log("✅ Final Crafting Results:", JSON.stringify(craftingResults, null, 2)); // Debugging check
+    document.getElementById("output").innerHTML = `
+    <h3>✅ Debug Recipes:</h3><pre>${JSON.stringify(debugRecipes, null, 2)}</pre>
+    <h3>✅ Debug Filtered Recipes:</h3><pre>${JSON.stringify(debugFilteredRecipes, null, 2)}</pre>
+    <h3>✅ Debug Inventory:</h3><pre>${JSON.stringify(debugInventory, null, 2)}</pre>
+    <h3>✅ Debug Crafting Report:</h3><pre>${JSON.stringify(debugCraftingReport, null, 2)}</pre>
+`;
 
     document.getElementById("output").textContent = craftingResults && Object.keys(craftingResults).length
         ? JSON.stringify(craftingResults, null, 2)
