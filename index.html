@@ -11,9 +11,6 @@
     <label for="inventory">Enter Inventory:</label>
     <textarea id="inventory" rows="5" cols="40"></textarea>
 
-    <label for="recipe">Enter Recipe:</label>
-    <textarea id="recipe" rows="3" cols="40"></textarea>
-
     <button onclick="checkCrafting()">Check Crafting</button>
     <p id="result"></p>
 
@@ -21,17 +18,8 @@
         function checkCrafting() {
             let rawInventory = document.getElementById("inventory").value;
             let craftingSystem = new CraftingSystem(rawInventory);
-            
-            let recipeInput = document.getElementById("recipe").value;
-            let recipe = {};
-            recipeInput.split("\n").forEach(line => {
-                let parts = line.split(":");
-                if (parts.length === 2) {
-                    recipe[parts[0].trim()] = parseInt(parts[1].trim());
-                }
-            });
 
-            document.getElementById("result").textContent = craftingSystem.canCraft(recipe) ? "Crafting Possible!" : "Not Enough Materials!";
+            document.getElementById("result").textContent = craftingSystem.getInventoryReport();
         }
     </script>
 </body>
