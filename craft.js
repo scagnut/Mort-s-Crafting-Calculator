@@ -1,4 +1,4 @@
-// Optimized Crafting System - Fully Fixed
+// Optimized Crafting System with JSON Recipe File Handling
 class CraftingSystem {
     constructor(inventory) {
         this.inventory = this.parseInventory(inventory);
@@ -29,32 +29,14 @@ class CraftingSystem {
         let allRecipes = {};
         for (let file of selectedFiles) {
             try {
-                const response = await fetch(file);
+                const response = await fetch(`https://scagnut.github.io/Mort-s-Crafting-Calculator/${file}`);
                 if (!response.ok) throw new Error(`Failed to load ${file}`);
-                const text = await response.text();
-                const lines = text.split("\n");
+                const jsonData = await response.json(); // Parse JSON instead of text
 
-                for (let line of lines) {
-                    let parts = line.split(",");
-                    if (parts.length > 1) {
-                        let recipeName = parts[0].trim();
-                        let materials = {};
-
-                        for (let i = 1; i < parts.length; i++) {
-                            let materialMatch = parts[i].trim().match(/(.+?)\((\d+)\)/);
-                            if (materialMatch) {
-                                let itemName = materialMatch[1].trim();
-                                let quantity = parseInt(materialMatch[2]);
-
-                                if (!["Violent Essence", "Vigor Essence"].includes(itemName)) {
-                                    materials[itemName] = quantity;
-                                }
-                            }
-                        }
-
-                        if (Object.keys(materials).length > 0) {
-                            allRecipes[recipeName] = materials;
-                        }
+                for (let recipeName in jsonData) {
+                    let materials = jsonData[recipeName];
+                    if (Object.keys(materials).length > 0) {
+                        allRecipes[recipeName] = materials;
                     }
                 }
             } catch (error) {
@@ -110,6 +92,11 @@ async function runCraftingCalculation() {
     let rawInventory = document.getElementById("inventory").value;
     let selectedFiles = Array.from(document.querySelectorAll(".file-checkbox:checked")).map(el => el.value);
     let selectedTiers = Array.from(document.querySelectorAll(".tier-checkbox:checked")).map(el => el.value);
+
+    // Ensure file names reference JSON instead of TXT
+    selectedFiles = selectedFiles.map(file => file.replace(".txt", ".json"));
+
+    console.log("✅ Checking Recipe Files:", selectedFiles); // Debugging check
 
     let craftingSystem = new CraftingSystem(rawInventory);
     let recipes = await craftingSystem.parseRecipeFiles(selectedFiles);
