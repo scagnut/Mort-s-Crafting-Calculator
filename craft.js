@@ -1,4 +1,4 @@
-// Core Crafting System
+// Updated Crafting System with Item Filtering
 class CraftingSystem {
     constructor(inventory) {
         this.inventory = this.parseInventory(inventory);
@@ -11,28 +11,43 @@ class CraftingSystem {
             if (match) {
                 let item = match[1].trim();
                 let quantity = parseInt(match[2]);
-                inventory[item] = quantity;
+                
+                // Ignore certain items
+                if (item !== "Violent Essence" && item !== "Vigor Essence") {
+                    inventory[item] = quantity;
+                }
             }
         });
         return inventory;
     }
 
-    canCraft(recipe) {
+    craftItem(recipe) {
+        let missingItems = [];
+        let craftedItems = [];
+
         for (let item in recipe) {
-            if (!this.inventory[item] || this.inventory[item] < recipe[item]) {
-                return false;
+            let needed = recipe[item];
+            let available = this.inventory[item] || 0;
+
+            if (available < needed) {
+                missingItems.push(`${item} (Missing: ${needed - available})`);
+            } else {
+                this.inventory[item] -= needed;
+                craftedItems.push(`${item} (Used: ${needed}, Left: ${this.inventory[item]})`);
             }
         }
-        return true;
+
+        if (missingItems.length > 0) {
+            return `❌ Not enough materials! Missing:\n${missingItems.join("\n")}`;
+        } else {
+            return `✅ Crafting Successful!\nUsed:\n${craftedItems.join("\n")}`;
+        }
     }
 }
 
 // Example Usage
-let rawInventory = `08:16] Helgrammites(5)
-[08:16] Cricket(16)
-[08:16] Worm(71)`;
-
+let rawInventory = `[04:34] Violent Essence(215)\n[04:34] Vigor Essence(50)\n[04:34] Helgrammites(5)\n[04:34] Cricket(16)`;
 let craftingSystem = new CraftingSystem(rawInventory);
 let recipe = { "Helgrammites": 3, "Cricket": 10 };
 
-console.log(craftingSystem.canCraft(recipe)); // Output: true
+console.log(craftingSystem.craftItem(recipe));
