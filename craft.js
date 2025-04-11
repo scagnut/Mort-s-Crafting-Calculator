@@ -1,4 +1,4 @@
-// Optimized Crafting System
+// Optimized Crafting System (Inventory Parsing & Recipe Filtering)
 class CraftingSystem {
     constructor(inventory) {
         this.inventory = this.parseInventory(inventory);
@@ -6,18 +6,20 @@ class CraftingSystem {
 
     parseInventory(rawData) {
         let inventory = {};
-        rawData.split("\n").forEach(line => {
+        let lines = rawData.split("\n");
+
+        for (let line of lines) {
             let match = line.match(/\[.*?\] (.+?)\((\d+)\)/);
             if (match) {
                 let item = match[1].trim();
                 let quantity = parseInt(match[2]);
 
-                // Exclude unwanted items
-                if (item !== "Violent Essence" && item !== "Vigor Essence") {
+                // Exclude unwanted items and headers
+                if (item !== "Items in Craft Vault" && item !== "Violent Essence" && item !== "Vigor Essence") {
                     inventory[item] = quantity;
                 }
             }
-        });
+        }
         return inventory;
     }
 
@@ -33,6 +35,7 @@ class CraftingSystem {
                 if (parts.length > 1) {
                     let recipeName = parts[0].trim();
                     let materials = {};
+
                     for (let i = 1; i < parts.length; i++) {
                         let materialMatch = parts[i].trim().match(/(.+?)\((\d+)\)/);
                         if (materialMatch) {
@@ -44,6 +47,7 @@ class CraftingSystem {
                             }
                         }
                     }
+
                     if (Object.keys(materials).length > 0) {
                         allRecipes[recipeName] = materials;
                     }
@@ -98,5 +102,7 @@ async function runCraftingCalculation() {
     let filteredRecipes = craftingSystem.filterRecipesByTier(recipes, selectedTiers);
     let craftingResults = craftingSystem.generateCraftingReport(filteredRecipes);
 
-    document.getElementById("output").textContent = JSON.stringify(craftingResults, null, 2);
+    document.getElementById("output").textContent = craftingResults && Object.keys(craftingResults).length
+        ? JSON.stringify(craftingResults, null, 2)
+        : "❌ No items craftable with the current inventory.";
 }
