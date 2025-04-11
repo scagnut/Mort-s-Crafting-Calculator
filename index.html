@@ -2,25 +2,40 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mort’s Crafting Calculator</title>
+    <title>Mort's Crafting Calculator</title>
     <script src="craft.js" defer></script>
 </head>
 <body>
-    <h1>Mort’s Crafting Calculator</h1>
-    <label for="inventory">Enter Inventory:</label>
-    <textarea id="inventory" rows="5" cols="40"></textarea>
+    <h1>Mort's Crafting Calculator</h1>
 
-    <button onclick="checkCrafting()">Check Crafting</button>
-    <p id="result"></p>
+    <section>
+        <h2>Inventory Input</h2>
+        <textarea id="inventory" rows="10" cols="50" placeholder="[04:34] Helgrammites(5)\n[04:34] Cricket(16)\n[04:34] Spinner(16)"></textarea>
+    </section>
 
-    <script>
-        function checkCrafting() {
-            let rawInventory = document.getElementById("inventory").value;
-            let craftingSystem = new CraftingSystem(rawInventory);
+    <section>
+        <h2>Select Recipe Files</h2>
+        <label><input type="checkbox" class="file-checkbox" value="armor.txt" checked> armor.txt</label><br>
+        <label><input type="checkbox" class="file-checkbox" value="weapons.txt" checked> weapons.txt</label><br>
+        <label><input type="checkbox" class="file-checkbox" value="jewel.txt" checked> jewel.txt</label><br>
+        <label><input type="checkbox" class="file-checkbox" value="alchemy.txt" checked> alchemy.txt</label><br>
+    </section>
 
-            document.getElementById("result").textContent = craftingSystem.getInventoryReport();
-        }
-    </script>
+    <section>
+        <h2>Select Tiers</h2>
+        <label><input type="checkbox" class="tier-checkbox" value="Tier 1" checked> Tier 1</label><br>
+        <label><input type="checkbox" class="tier-checkbox" value="Tier 2" checked> Tier 2</label><br>
+        <label><input type="checkbox" class="tier-checkbox" value="Tier 3" checked> Tier 3</label><br>
+        <label><input type="checkbox" class="tier-checkbox" value="Tier 4" checked> Tier 4</label><br>
+        <label><input type="checkbox" class="tier-checkbox" value="Tier 5" checked> Tier 5</label><br>
+        <label><input type="checkbox" class="tier-checkbox" value="Tier 6" checked> Tier 6</label><br>
+    </section>
+
+    <button onclick="runCrafting()">Run Crafting Calculation</button>
+
+    <section>
+        <h2>Crafting Report</h2>
+        <pre id="output"></pre>
+    </section>
 </body>
 </html>
