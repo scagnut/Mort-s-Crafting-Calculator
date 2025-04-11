@@ -1,4 +1,4 @@
-// Optimized Crafting System (Filters Recipe Files & Tiers)
+// Optimized Crafting System
 class CraftingSystem {
     constructor(inventory) {
         this.inventory = this.parseInventory(inventory);
@@ -88,7 +88,6 @@ class CraftingSystem {
     }
 }
 
-// Example Usage
 async function runCraftingCalculation() {
     let rawInventory = document.getElementById("inventory").value;
     let selectedFiles = Array.from(document.querySelectorAll(".file-checkbox:checked")).map(el => el.value);
