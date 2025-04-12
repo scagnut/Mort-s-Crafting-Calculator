@@ -73,6 +73,22 @@ def filter_by_tiers(recipes, selected_tiers):
                 filtered_recipes[recipe_name] = materials
     return filtered_recipes
 
+# Function to parse inventory from user input
+def parse_inventory(raw_inventory):
+    inventory = {}
+    for line in raw_inventory.strip().split('\n'):
+        parts = line.split(']')
+        if len(parts) > 1:
+            item_data = parts[1].strip()
+        else:
+            item_data = line.strip()
+        if '(' in item_data and ')' in item_data:
+            item_name, quantity = item_data.split('(')
+            item_name = item_name.strip()
+            quantity = int(quantity.replace(')', '').strip())
+            inventory[item_name] = quantity
+    return inventory
+
 # Function to generate crafting report **sorted by armor and tier**
 def crafting_report(tiers, recipes, inventory):
     craftable_items = {}
