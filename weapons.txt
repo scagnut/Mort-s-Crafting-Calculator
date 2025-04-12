@@ -1,0 +1,53 @@
+#Tiers
+Tier 1 , Level 1, Green , Level 20
+Tier 2 , Level 30 , Blue , Level 20
+Tier 3 , Level 50 , Green , Level 25
+Tier 4 , Level 70 , Purple , Level 20
+Tier 5 , Level 80 , Blue , Level 25
+Tier 6 , Level 95 , Purple , Level 25
+
+
+# Recipes
+Tier 1 Iron Rapier, Iron Ore(15), Amethyst(4), Ruby(2)
+Tier 1 Iron Tipped Staff, Linen(15), Coarse Thread(3), Feather(3)
+Tier 1 Iron Claymore, Iron Ore(15), Silver Ore(4), Amethyst(2)
+Tier 1 Iron Mallet, Light Leather(15), Sinew(2), Light Hide(4)
+Tier 1 Iron Dagger, Iron Ore(15), Jade(4), Ruby(2)
+Tier 1 Iron Longbow, Linen(8), Light Leather(7), Bolt of Linen(2), Teeth(4)
+
+Tier 2 Tempered Silver Flatbow, Linen(5), Light Leather(5), Bolt of Linen(4), Teeth(4), Enchanted Thread(1), Jaw Bone(1)
+Tier 2 Tempered Silver Quarterstaff, Linen(10), Coarse Thread(5), Feather(4), Enchanted Thread(2)
+Tier 2 Tempered Silver Sword, Iron Ore(10), Silver Ore(3), Amethyst(7), Sapphire(2)
+Tier 2 Tempered Silver Glaive, Iron Ore(10), Silver Ore(3), Ruby(7), Coral(2)
+Tier 2 Tempered Silver Dagger, Iron Ore(10), Silver Ore(3), Jade(7), Sapphire(2)
+Tier 2 Tempered Silver Mace, Light Leather(10), Sinew(5), Light Hide(4), Jaw Bone(2)
+
+Tier 3 Golden Kukri, Iron Ore(35), Sapphire(10), Gold Ore(5), Coral(2), Diamond(3)
+Tier 3 Golden Broadsword, Iron Ore(35), Gold Ore(10), Coral(5), Sapphire(2), Peridot(3)
+Tier 3 Golden Staff, Cotton(35), Bolt of Cotton(4), Large Feather(4), Enchanted Thread(3)
+Tier 3 Golden Hammer, Medium Leather(35), Fur Pelt(12), Medium Hide(5), Jaw Bone(3)
+Tier 3 Golden Jian, Iron Ore(35), Coral(10), Sapphire(5), Gold Ore(2), Emerald(3)
+Tier 3 Golden Composite Bow, Cotton(35), Medium Leather(40), Medium Hide(7), Bolt of Cotton(10), Enchanted Thread(2), Jaw Bone(1)
+
+Tier 4 Chromatic Baton, Cotton(40), Bolt of Cotton(5), Large Feather(15), Enchanted Thread(7)
+Tier 4 Chromatic Mace, Medium Leather(40), Medium Hide(5), Fur Pelt(15), Jaw Bone(7)
+Tier 4 Chromatic Blade, Iron Ore(40), Sapphire(5), Gold Ore(15), Peridot(7)
+Tier 4 Chromatic Stonebow, Cotton(20), Bolt of Cotton(10), Medium Leather(20), Medium Hide(10), Jaw Bone(4), Enchanted Thread(3)
+Tier 4 Chromatic War Hammer, Iron Ore(40), Coral(5), Sapphire(15), Diamond(7)
+Tier 4 Chromatic Kris, Iron Ore(40), Gold Ore(5), Coral(15), Emerald(7)
+
+Tier 5 Orichalcum Hammer, Heavy Leather(80), Heavy Hide(35), Fur Pelt(5), Animal Skull(9), Rugged Leather(3)
+Tier 5 Orichalcum Greatsword, Orichalcum Ore(80), Amber(35), Lapis(5), Beryl(12)
+Tier 5 Orichalcum Staff, Wool(80), Pristine Feather(35), Bolt of Wool(5), Alderran Silk(9), Blackspawn Silk(3)
+Tier 5 Orichalcum Bow, Wool(40), Heavy Leather(40), Fur Pelt(20), Pristine Feather(20), Blackspawn Silk(6), Rugged Leather(6)
+Tier 5 Orichalcum Dagger, Orichalcum Ore(80), Lapis(35), Malachite(5), Zircon(12)
+Tier 5 Orichalcum Sword, Orichalcum Ore(80), Malachite(35), Amber(5), Garnet(12)
+
+Tier 6 Incandescent Claws, Heavy Leather(600), Bloody Carcass(200), Heavy Hide(100), Animal Skull(100)
+Tier 6 Focusing Scepter, Wool(600), Pristine Feather(200), Bolt of Wool(100), Alderran Silk(100)
+Tier 6 Gilded Crescent, Orichalcum Ore(600), Lapis(150), Malachite(150), Zircon(100)
+Tier 6 Silent Sickle, Wool(600), Bolt of Wool(200), Pristine Feather(100), Blackspawn Silk(100)
+Tier 6 Swift Shortbow, Wool(300), Heavy Leather(300), Pristine Feather(150), Heavy Hide(150), Alderran Silk(50), Animal Skull(50)
+Tier 6 Dragon Kris, Orichalcum Ore(600), Amber(150), Lapis(150), Garnet(100)
+Tier 6 Sanguine Longblade, Orichalcum Ore(600), Malachite(150), Amber(150), Beryl(100)
+Tier 6 Jeweled Mace, Heavy Leather(600), Heavy Hide(200), Bloody Carcass(100), Rugged Leather(100)

@@ -1,0 +1,49 @@
+# Tiers
+Tier 1 , Level 1, Green , Level 20
+Tier 2 , Level 30 , Blue , Level 20
+Tier 3 , Level 50 , Green , Level 25
+Tier 4 , Level 70 , Purple , Level 20
+Tier 5 , Level 80 , Blue , Level 25
+Tier 6 , Level 95 , Purple , Level 25
+
+
+# Recipes
+Tier 1 Iron Salvage - Tier 1, Iron Ore(10)
+Tier 1 Iron Pendant, Iron Ore(3), Silver Ore(6), Jade(3)
+Tier 1 Iron Piccolo, Iron Ore(3), Ruby(6), Amethyst(3)
+Tier 1 Iron Gauntlets, Iron Ore(3), Amethyst(6), Ruby(3)
+Tier 1 Iron Greaves, Iron Ore(3), Jade(6), Silver Ore(3)
+
+Tier 2 Tempered Silver Circlet, Iron Ore(3), Silver Ore(2), Amethyst(6), Coral(2)
+Tier 2 Tempered Silver Boots, Iron Ore(3), Ruby(4), Jade(4), Sapphire(2)
+Tier 2 Tempered Silver Oboe, Iron Ore(3), Amethyst(4), Ruby(4), Coral(2)
+Tier 2 Tempered Silver Ring, Iron Ore(3), Silver Ore(6), Ruby(2), Sapphire(2)
+Tier 2 Tempered Silver Gloves, Iron Ore(3), Silver Ore(2), Jade(6), Gold Ore(2)
+
+Tier 3 Golden Necklace, Iron Ore(15), Sapphire(15), Coral(5), Emerald(5)
+Tier 3 Golden Boots, Iron Ore(15), Gold Ore(5), Coral(15), Diamond(5)
+Tier 3 Golden Gloves, Iron Ore(15), Gold Ore(15), Sapphire(5), Peridot(5)
+Tier 3 Golden Ring, Iron Ore(15), Gold Ore(15), Sapphire(5), Diamond(5)
+Tier 3 Golden Harmonica, Iron Ore(15), Coral(15), Sapphire(5), Peridot(5)
+Tier 3 Iron Salvage - Tier 2, Iron Ore(25)
+
+Tier 4 Chromium Gloves, Iron Ore(20), Sapphire(20), Gold Ore(10), Diamond(8)
+Tier 4 Chromium Tambourine, Iron Ore(20), Coral(20), Sapphire(10), Peridot(8)
+Tier 4 Chromium Necklace, Iron Ore(20), Gold Ore(20), Coral(10), Peridot(8)
+Tier 4 Chromium Band, Iron Ore(20), Coral(10), Sapphire(20), Emerald(8)
+Tier 4 Chromium Boots, Iron Ore(20), Gold Ore(20), Coral(10), Emerald(8)
+
+Tier 5 Orichalcum Ring, Orichalcum Ore(35), Amber(50), Zircon(7), Beryl(7)
+Tier 5 Orichalcum Arrow Quiver, Orichalcum Ore(5), Malachite(2), Lapis(2)
+Tier 5 Orichalcum Bolt Case, Orichalcum Ore(5), Amber(4)
+Tier 5 Orichalcum Salvage, Orichalcum Ore(50)
+Tier 5 Orichalcum Choker, Orichalcum Ore(35), Lapis(50), Garnet(7), Zircon(7)
+Tier 5 Orichalcum Gauntlets, Orichalcum Ore(35), Malachite(50), Beryl(7), Garnet(7)
+Tier 5 Orichalcum Boots, Orichalcum Ore(35), Lapis(25), Amber(12), Malachite(13), Zircon(14)
+Tier 5 Orichalcum Lute, Orichalcum Ore(35), Amber(25), Malachite(12), Lapis(13), Beryl(14)
+
+Tier 6 Mythical Tabor, Orichalcum Ore(50), Lapis(300), Amber(100), Beryl(100), Garnet(50)
+Tier 6 Prism Band, Orichalcum Ore(50), Lapis(100), Malachite(300), Zircon(125), Beryl(25)
+Tier 6 Eternity's Tear, Orichalcum Ore(50), Amber(300), Malachite(100), Beryl(50), Garnet(100)
+Tier 6 Shadowstep Sabatons, Orichalcum Ore(50), Malachite(200), Lapis(200), Zircon(75), Beryl(75)
+Tier 6 Runic Gloves, Orichalcum Ore(50), Lapis(100), Malachite(100), Amber(200), Garnet(75), Zircon(75)
