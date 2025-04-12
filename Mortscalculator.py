@@ -1,6 +1,6 @@
 from flask import Flask, request, jsonify, render_template
 
-app = Flask(__name__)
+app = Flask(__name__, template_folder="templates")  # Explicitly define templates folder
 
 # Global variables to store selected files and tiers
 selected_files = {"armor.txt": True, "weapons.txt": True, "jewel.txt": True, "alchemy.txt": True}
@@ -64,7 +64,7 @@ def parse_files(selected_files):
             recipes.update(file_recipes)
     return tiers, recipes
 
-# Function to filter recipes based on selected tiers
+# Function to filter recipes by selected tiers
 def filter_by_tiers(recipes, selected_tiers):
     filtered_recipes = {}
     for recipe_name, materials in recipes.items():
@@ -73,42 +73,44 @@ def filter_by_tiers(recipes, selected_tiers):
                 filtered_recipes[recipe_name] = materials
     return filtered_recipes
 
-# Function to generate crafting report
+# Function to generate crafting report **sorted by armor and tier**
 def crafting_report(tiers, recipes, inventory):
     craftable_items = {}
+
     for recipe_name, materials in recipes.items():
         max_count = float("inf")
+
         for item, required_amount in materials.items():
             available_amount = inventory.get(item, 0)
             max_count = min(max_count, available_amount // required_amount)
-        if max_count > 0:
-            craftable_items[recipe_name] = max_count
-    return craftable_items
 
-# Function to parse inventory from user input
-def parse_inventory(raw_inventory):
-    inventory = {}
-    for line in raw_inventory.strip().split('\n'):
-        parts = line.split(']')
-        if len(parts) > 1:
-            item_data = parts[1].strip()
-        else:
-            item_data = line.strip()
-        if '(' in item_data and ')' in item_data:
-            item_name, quantity = item_data.split('(')
-            item_name = item_name.strip()
-            quantity = int(quantity.replace(')', '').strip())
-            inventory[item_name] = quantity
-    return inventory
+        if max_count > 0:
+            # Identify armor type and tier
+            armor_type = "Armor" if "armor" in recipe_name.lower() else "Other"
+            tier = next((t for t in tiers if t in recipe_name), "Unknown Tier")
+
+            # Group and sort items
+            if armor_type not in craftable_items:
+                craftable_items[armor_type] = {}
+            if tier not in craftable_items[armor_type]:
+                craftable_items[armor_type][tier] = {}
+
+            craftable_items[armor_type][tier][recipe_name] = max_count
+
+    # Sort results by Tier Order
+    for armor_type in craftable_items:
+        craftable_items[armor_type] = dict(sorted(craftable_items[armor_type].items(), key=lambda t: int(t[0].split()[1]) if "Tier" in t[0] else 999))
+
+    return craftable_items
 
 # Flask Routes
 @app.route('/')
 def index():
-    return render_template("index.html")
+    return render_template("index.html")  # Ensure it finds index.html in templates folder
 
 @app.route('/craft', methods=['POST'])
 def craft():
-    raw_inventory = request.form["inventory"]
+    raw_inventory = request.form.get("inventory", "")  # Avoid crashes if empty
     inventory = parse_inventory(raw_inventory)
 
     tiers, recipes = parse_files(selected_files)
@@ -118,4 +120,4 @@ def craft():
     return jsonify({"craftable_items": report})
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(host="0.0.0.0", port=8080, debug=False)  # Render requires host=0.0.0.0 and port 8080
