@@ -15,7 +15,19 @@
             });
 
             const result = await response.json();
-            document.getElementById("output").textContent = JSON.stringify(result.craftable_items, null, 2);
+            const outputDiv = document.getElementById("output");
+
+            outputDiv.innerHTML = "<h2>Crafting Results:</h2>";
+            Object.entries(result.craftable_items).forEach(([armorType, tiers]) => {
+                outputDiv.innerHTML += `<h3>${armorType}</h3>`;
+                Object.entries(tiers).forEach(([tier, recipes]) => {
+                    outputDiv.innerHTML += `<h4>${tier}</h4><ul>`;
+                    Object.entries(recipes).forEach(([recipe, count]) => {
+                        outputDiv.innerHTML += `<li>${recipe}: Can craft ${count}</li>`;
+                    });
+                    outputDiv.innerHTML += `</ul>`;
+                });
+            });
         }
     </script>
 </head>
@@ -26,7 +38,6 @@
     <br>
     <button onclick="runCrafting()">Run Crafting Calculation</button>
 
-    <h2>Crafting Results:</h2>
-    <pre id="output"></pre>
+    <div id="output"></div>
 </body>
 </html>
