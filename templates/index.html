@@ -5,19 +5,35 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mort's Crafting Calculator</title>
     <script>
+        // Default selected files and tiers
+        let selectedFiles = { "armor.txt": true, "weapons.txt": true, "jewel.txt": true, "alchemy.txt": true };
+        let selectedTiers = { "Tier 1": true, "Tier 2": true, "Tier 3": true, "Tier 4": true, "Tier 5": true, "Tier 6": true };
+
+        function toggleFile(file) {
+            selectedFiles[file] = !selectedFiles[file];
+        }
+
+        function toggleTier(tier) {
+            selectedTiers[tier] = !selectedTiers[tier];
+        }
+
         async function runCrafting() {
             const inventoryInput = document.getElementById("inventory").value;
 
             const response = await fetch("/craft", {
                 method: "POST",
                 headers: { "Content-Type": "application/x-www-form-urlencoded" },
-                body: new URLSearchParams({ inventory: inventoryInput })
+                body: new URLSearchParams({
+                    inventory: inventoryInput,
+                    selectedFiles: JSON.stringify(selectedFiles),
+                    selectedTiers: JSON.stringify(selectedTiers)
+                })
             });
 
             const result = await response.json();
             const outputDiv = document.getElementById("output");
-
             outputDiv.innerHTML = "<h2>Crafting Results:</h2>";
+
             Object.entries(result.craftable_items).forEach(([armorType, tiers]) => {
                 outputDiv.innerHTML += `<h3>${armorType}</h3>`;
                 Object.entries(tiers).forEach(([tier, recipes]) => {
@@ -34,6 +50,21 @@
 <body>
     <h1>Mort's Crafting Calculator</h1>
 
+    <h3>Select Categories:</h3>
+    <label><input type="checkbox" checked onclick="toggleFile('armor.txt')"> Armor</label>
+    <label><input type="checkbox" checked onclick="toggleFile('weapons.txt')"> Weapons</label>
+    <label><input type="checkbox" checked onclick="toggleFile('jewel.txt')"> Jewel</label>
+    <label><input type="checkbox" checked onclick="toggleFile('alchemy.txt')"> Alchemy</label>
+
+    <h3>Select Tiers:</h3>
+    <label><input type="checkbox" checked onclick="toggleTier('Tier 1')"> Tier 1</label>
+    <label><input type="checkbox" checked onclick="toggleTier('Tier 2')"> Tier 2</label>
+    <label><input type="checkbox" checked onclick="toggleTier('Tier 3')"> Tier 3</label>
+    <label><input type="checkbox" checked onclick="toggleTier('Tier 4')"> Tier 4</label>
+    <label><input type="checkbox" checked onclick="toggleTier('Tier 5')"> Tier 5</label>
+    <label><input type="checkbox" checked onclick="toggleTier('Tier 6')"> Tier 6</label>
+
+    <h3>Enter Inventory:</h3>
     <textarea id="inventory" placeholder="Enter your inventory here..." rows="10"></textarea>
     <br>
     <button onclick="runCrafting()">Run Crafting Calculation</button>
