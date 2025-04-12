@@ -4,7 +4,11 @@ async function loadArmorRecipes() {
         const response = await fetch("armor1.json");
         if (!response.ok) throw new Error("Failed to load armor1.json");
         const jsonData = await response.json();
-        return jsonData.WeaponsCrafting.Recipes["Tier 1"]; // Pull Tier 1 recipes
+        
+        // ✅ Debugging to confirm JSON loads correctly
+        console.log("✅ Loaded Recipes:", jsonData.WeaponsCrafting.Recipes["Tier 1"]);
+        
+        return jsonData.WeaponsCrafting.Recipes["Tier 1"]; // Pulling only Tier 1 recipes
     } catch (error) {
         console.error("❌ Error loading recipes:", error);
         return {};
@@ -21,12 +25,16 @@ window.runCrafting = async function() {
     // Convert inventory items to standardized format
     let standardizedInventory = inventoryText.reduce((acc, line) => {
         const match = line.match(/^(.+?)\((\d+)\)$/);
-        if (match) acc[match[1].trim().toLowerCase()] = parseInt(match[2], 10);
+        if (match) acc[match[1].trim()] = match[0]; // Store full formatted string
         return acc;
     }, {}); 
 
     let recipes = await loadArmorRecipes();
     let craftableItems = {};
+
+    // Debugging logs to confirm correct inventory processing
+    console.log("✅ Standardized Inventory:", standardizedInventory);
+    console.log("✅ Loaded Recipes:", recipes);
 
     // Process each recipe and calculate possible craft count
     for (let recipeName in recipes) {
@@ -36,7 +44,7 @@ window.runCrafting = async function() {
         for (let material of materials) {
             let [itemName, requiredCount] = material.match(/^(.+?)\((\d+)\)$/).slice(1, 3);
             requiredCount = parseInt(requiredCount, 10);
-            let availableCount = standardizedInventory[itemName.toLowerCase()] || 0;
+            let availableCount = standardizedInventory[itemName] || 0;
 
             maxCraftCount = Math.min(maxCraftCount, Math.floor(availableCount / requiredCount));
         }
